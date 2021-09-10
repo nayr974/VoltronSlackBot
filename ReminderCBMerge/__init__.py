@@ -3,7 +3,7 @@ import logging
 import random
 
 import azure.functions as func
-from utils import post_message
+from utils import post_message, delete_message
 from .gitjokes import JOKES
 
 def main(mytimer: func.TimerRequest) -> None:

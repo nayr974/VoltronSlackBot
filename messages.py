@@ -1,14 +1,14 @@
 from datetime import datetime, timedelta
 from utils import next_weekday
 
-def dev_of_the_week_confirmed(data):
+def dev_of_the_week_confirmed(data, lunch_tip=False):
     dotwList = data["dotwList"]
     backupList = data["backupList"]
     next_monday = next_weekday(datetime.now(),0).strftime("%b %d %Y")
     next_friday = next_weekday(datetime.now(),4).strftime("%b %d %Y")
     next_next_monday = next_weekday(datetime.now() + timedelta(days=7),0).strftime("%b %d %Y")
     next_next_friday = next_weekday(datetime.now() + timedelta(days=7),4).strftime("%b %d %Y")
-    return [
+    message = [
             {
                 "type": "section",
                 "text": {
@@ -36,6 +36,15 @@ def dev_of_the_week_confirmed(data):
                 }
             }
         ]
+    if lunch_tip == True:
+        message.append({
+                "type": "section",
+                "text": {
+                    "type": "mrkdwn",
+                    "text": f"* {data['team'][dotwList[0]]['name']} don't forget your lunch perk! Use the Engineering code, and *Voltron - Dev Of The Week Allowance* as the comment."
+                }
+            })
+    return message
 
 def dev_of_the_week(data):
     dotwList = data["dotwList"]
