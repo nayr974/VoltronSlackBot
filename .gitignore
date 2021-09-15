@@ -115,3 +115,12 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+__azurite_db_blob__.json
+__azurite_db_blob_extent__.json
+__azurite_db_queue__.json
+__azurite_db_queue_extent__.json
+__azurite_db_table__.json
+__blobstorage__/53327577-5607-4205-8d3e-0da3bc36097e
+__blobstorage__/7ff695dc-b41f-40b1-96c3-24fecf734755
+__blobstorage__/9c4cca1b-e88e-418b-9e9d-d54f2b8a423f
+__blobstorage__/e2df7b4a-62ac-4509-9f06-662e24ae2711

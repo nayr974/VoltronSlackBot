@@ -9,12 +9,18 @@ import os
 from urllib.parse import unquote
 from slack_sdk import WebClient
 from slack_sdk.errors import SlackApiError
+from ghapi.core import GhApi
 
 STORAGE_URL = os.environ['STORAGE_URL']
 STORAGE_TOKEN = os.environ['STORAGE_TOKEN']
 BOT_TOKEN = os.environ['BOT_TOKEN']
+GITHUB_TOKEN = os.environ['GITHUB_TOKEN']
 
 client = WebClient(token=BOT_TOKEN)
+
+def get_github_api():
+    api = GhApi(owner='thinkific', repo='thinkific', token=GITHUB_TOKEN)
+    return api
 
 def get_data():    
     logging.info(STORAGE_URL)
