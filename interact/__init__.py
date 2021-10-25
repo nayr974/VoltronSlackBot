@@ -18,6 +18,7 @@ def confirm_dotw(data, payload):
     
     update_message(payload["channel"]["id"], payload["message"]["ts"], text="The dev of the week for next week has been picked!", blocks=dev_of_the_week_confirmed(data, lunch_tip=True))
     post_message("#project-tech-team_daily", text="The dev of the week for next week has been picked!", blocks=dev_of_the_week_confirmed(data))
+    post_message("#project-dotw_sync", text="The dev of the week for next week has been picked!", blocks=dev_of_the_week_confirmed(data))
     update_data(data)
 
 def delete_post(data, payload):
