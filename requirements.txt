@@ -6,3 +6,4 @@ azure-functions
 requests
 slack_sdk
 ghapi
+numpy

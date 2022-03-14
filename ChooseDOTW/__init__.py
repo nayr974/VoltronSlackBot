@@ -7,6 +7,7 @@ from messages import dev_of_the_week
 
 
 def main(mytimer: func.TimerRequest) -> None:
+    return 
     data = get_data()
     logging.info(json.dumps(data))
 
@@ -27,5 +28,5 @@ def main(mytimer: func.TimerRequest) -> None:
     backupList[2] = data["team"].index(pick_teammember(data["team"], "backupCount", dotwList[2]))
     data["backupList"] = backupList
     
-    post_message("#team-voltron", text="It's time to pick the *Dev Of The Week* for next week!", blocks=dev_of_the_week(data))
+    post_message("#team-totoro", text="It's time to pick the *Dev Of The Week* for next week!", blocks=dev_of_the_week(data))
     update_data(data)
