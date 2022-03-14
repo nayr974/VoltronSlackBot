@@ -13,7 +13,7 @@ def main(mytimer: func.TimerRequest) -> None:
 				"type": "section",
 				"text": {
 					"type": "mrkdwn",
-					"text": f"<!subteam^S032EF67EUS> _{icebreaker}_ "
+					"text": f"<!subteam^S032EF67EUS> Getting to know you question! _{icebreaker}_ "
 				}
 			}])
 	
