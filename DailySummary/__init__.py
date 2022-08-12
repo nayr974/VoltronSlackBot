@@ -22,10 +22,11 @@ def main(mytimer: func.TimerRequest) -> None:
         links += f"\n><{item.pull_request.html_url}|{item.title[:75] + '...' if len(item.title) > 78 else item.title}>"
 
     ############ Sprint Data
-    response = requests.get("https://thinkific.atlassian.net/rest/agile/1.0/board/421/sprint",
+    response = requests.get("https://thinkific.atlassian.net/rest/agile/1.0/board/422/sprint",
 	headers={"Authorization": f"Basic {JIRA_TOKEN}"})
     sprint_id = list(response.json()["values"])[-1]["id"]
     sprint_name = list(response.json()["values"])[-1]["name"]
+    sprint_goal = list(response.json()["values"])[-1]["goal"].replace('\n', ' ')
     sprint_start = datetime.strptime(list(response.json()["values"])[-1]["startDate"], "%Y-%m-%dT%H:%M:%S.%fZ")
     sprint_end = datetime.strptime(list(response.json()["values"])[-1]["endDate"], "%Y-%m-%dT%H:%M:%S.%fZ")
     days_remaining = np.busday_count(datetime.utcnow().date(), sprint_end.date()) +1
@@ -45,10 +46,10 @@ def main(mytimer: func.TimerRequest) -> None:
     for issue in issues:
         if issue["fields"]["status"]["name"] == "Done":
             totalIssuesDone = totalIssuesDone + 1
-            if issue["fields"]["customfield_10016"]:
-                totalPointsDone = int(totalPointsDone + issue["fields"]["customfield_10016"])
-        if issue["fields"]["customfield_10016"]:
-            totalPoints = totalPoints + int(issue["fields"]["customfield_10016"])
+            if issue["fields"]["customfield_10026"]:
+                totalPointsDone = int(totalPointsDone + issue["fields"]["customfield_10026"])
+        if issue["fields"]["customfield_10026"]:
+            totalPoints = totalPoints + int(issue["fields"]["customfield_10026"])
 
 
     ############### BUILD MESSAGE
@@ -64,7 +65,7 @@ def main(mytimer: func.TimerRequest) -> None:
         "type": "section",
         "text": {
             "type": "mrkdwn",
-            "text": f":run: *{sprint_name}*\n><https://thinkific.atlassian.net/jira/software/projects/TOTORO/boards/421|Sprint Board>   <https://thinkific.atlassian.net/jira/software/projects/TOTORO/boards/421/reports/burnup|Burnup Chart>    <https://thinkific.atlassian.net/jira/software/projects/TOTORO/boards/421/reports/velocity|Velocity Report>\n>{days_remaining} work days remaining    {totalIssuesDone}/{totalIssues} items done    {totalPointsDone}/{totalPoints} story points done"
+            "text": f":run: *{sprint_name}*\n>Goal: {sprint_goal}\n><https://thinkific.atlassian.net/jira/software/projects/TOTORO/boards/422|Sprint Board>   <https://thinkific.atlassian.net/jira/software/c/projects/TOTORO/boards/422/reports/burnup-char|Burnup Chart>    <https://thinkific.atlassian.net/jira/software/c/projects/TOTORO/boards/422/reports/velocity-chart|Velocity Report>\n>{days_remaining} work days remaining    {totalIssuesDone}/{totalIssues} items done    {totalPointsDone}/{totalPoints} story points done"
         }
     })
 
@@ -89,5 +90,5 @@ def main(mytimer: func.TimerRequest) -> None:
         }
     })
 
-    post_message("#team-totoro", text="Totoro Daily Summary", blocks=blocks)
+    post_message("#team-totoro-only", text="Totoro Daily Summary", blocks=blocks)
  
