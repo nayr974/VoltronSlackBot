@@ -44,7 +44,7 @@ def main(mytimer: func.TimerRequest) -> None:
     totalIssuesDone = 0
 
     for issue in issues:
-        if issue["fields"]["status"]["name"] == "Done":
+        if issue["fields"]["status"]["name"] == "Done" or issue["fields"]["status"]["name"] == "Not today, Satan." :
             totalIssuesDone = totalIssuesDone + 1
             if issue["fields"]["customfield_10026"]:
                 totalPointsDone = int(totalPointsDone + issue["fields"]["customfield_10026"])
@@ -65,7 +65,7 @@ def main(mytimer: func.TimerRequest) -> None:
         "type": "section",
         "text": {
             "type": "mrkdwn",
-            "text": f":run: *{sprint_name}*\n>Goal: {sprint_goal}\n><https://thinkific.atlassian.net/jira/software/projects/TOTORO/boards/422|Sprint Board>   <https://thinkific.atlassian.net/jira/software/c/projects/TOTORO/boards/422/reports/burnup-char|Burnup Chart>    <https://thinkific.atlassian.net/jira/software/c/projects/TOTORO/boards/422/reports/velocity-chart|Velocity Report>\n>{days_remaining} work days remaining    {totalIssuesDone}/{totalIssues} items done    {totalPointsDone}/{totalPoints} story points done"
+            "text": f":run: *{sprint_name}*\n>Goal: {sprint_goal}\n>\n><https://thinkific.atlassian.net/jira/software/c/projects/TOTO/boards/422|Sprint Board>   <https://thinkific.atlassian.net/jira/software/c/projects/TOTORO/boards/422/reports/burnup-char|Burnup Chart>    <https://thinkific.atlassian.net/jira/software/c/projects/TOTORO/boards/422/reports/velocity-chart|Velocity Report>\n>{days_remaining} work days remaining    {totalIssuesDone}/{totalIssues} items done    {totalPointsDone}/{totalPoints} story points done"
         }
     })
 
@@ -90,5 +90,5 @@ def main(mytimer: func.TimerRequest) -> None:
         }
     })
 
-    post_message("#team-totoro-only", text="Totoro Daily Summary", blocks=blocks)
+    post_message("#team-totoro-test", text="Totoro Daily Summary", blocks=blocks)
  
